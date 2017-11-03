@@ -303,7 +303,34 @@
       
         
           
-            
+            <h1 id="Fundamental-of-Quantitative-Modeling"><a href="#Fundamental-of-Quantitative-Modeling" class="headerlink" title="Fundamental of Quantitative Modeling"></a>Fundamental of Quantitative Modeling</h1><hr>
+<p>What is a model?</p>
+<blockquote>
+<ul>
+<li>A formal description of a business process</li>
+<li>It is almost always a simplification of a more complex structure. It is not that much simple, but should not be complex.</li>
+<li>It typically relies upon a set of assumptions</li>
+</ul>
+</blockquote>
+<p>Give an example of model:<br>The relationship beteen demard for, and price of, a product. If the demand increases, and the supply remains the same, there will be a shortage. This means the price will increase. This can help a company to figure out what price maximize profit.</p>
+<h4 id="However-model-is-used-as-a-decision-support-tool-the-result-of-any-prediction-or-forecasting-is-not-100-correct"><a href="#However-model-is-used-as-a-decision-support-tool-the-result-of-any-prediction-or-forecasting-is-not-100-correct" class="headerlink" title="However, model is used as a decision support tool, the result of any prediction or forecasting is not 100% correct."></a>However, model is used as a decision support tool, the result of any prediction or forecasting is not 100% correct.</h4><p>###Modeling Process Workflow</p>
+<p><img src="/images/chart1.jpg" width="30%" height="30%" align="center/"></p>
+<p><div id="diagram">Diagram will be placed here</div></p>
+<script src="../../../node_modules/flowchart.js"></script>
+<script>
+  var diagram = flowchart.parse('st=>start: Start:>http://www.google.com[blank]\n' +
+                                'e=>end:>http://www.google.com\n' +
+                                'op1=>operation: My Operation\n' +
+                                'sub1=>subroutine: My Subroutine\n' +
+                                'cond=>condition: Yes \n' + // use cond(align-next=no) to disable vertical align of symbols below
+                                'or No?\n:>http://www.google.com' +
+                                'io=>inputoutput|request: catch something...\n' +
+                                '' +
+                                'st->op1->cond\n' +
+                                'cond(yes)->io->e\n' + // conditions can also be redirected like cond(yes, bottom) or cond(yes, right)
+                                'cond(no)->sub1(right)->op1');// the other symbols too...
+  diagram.drawSVG('diagram');
+</script>
           
         
       
