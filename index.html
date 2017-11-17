@@ -232,6 +232,294 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/15/greedy-algorithms/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yue Guo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/15/greedy-algorithms/" itemprop="url">greedy_algorithms</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-15T16:59:55-05:00">
+                2017-11-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>What does greedy means?<br>Always pick short term best decision.<br>It is easy to invent greedy algorithm, but how to prove they work well is a challenge.</p>
+<h3 id="First-Problem-Interval-Scheduling"><a href="#First-Problem-Interval-Scheduling" class="headerlink" title="First Problem : Interval Scheduling"></a>First Problem : Interval Scheduling</h3><p>We have a set of requests: {1,2,….,n}, and each of them has start-time and finish-time, (s1,f1), (s2,f2),…., (sn,fn).<br>Define: The whole set is compatible if no two of them overlap in time.<br>Goal: Accept as large a compatible subset as possible.</p>
+<p>Using greedy algorithm:<br>We accept a request i and reject all requests that are not compatible with it. We continue doing this until we run out of request.</p>
+<p>The problem is, which rules should we follow to pick up a request in each iteration.<br>We may have several possible ways:</p>
+<ol>
+<li>pick up the first start request.</li>
+<li>pick up the smallest request.</li>
+<li>pick up the one has fewest noncompatible request.</li>
+<li>pick up the first finish request.</li>
+</ol>
+<p><img src="/images/interval.jpg" width="60%" height="60%" align="center/"><br>(Using the example from book “Algorithm Design”)</p>
+<p>With these three example, we can find that rule 1, rule 2 and rule 3 are all wrong. And we should accept the request that finishes first.<br>Here is the algorithm:</p>
+<pre><code>Initialize R with the set of all request, and let A be empty:
+WHILE R is not empty:
+     Choose a request i that finishes first;
+    Add i to A:
+    Delete all requests that are not compatible with i;
+END WHILE
+Return A
+</code></pre><p>Think about it, when we choose a request that finishes first, then we can maximize time left to satisfy other requests.<br>Proof:<br>The algorithm gives us subset A{i1, i2,….,ik]<br>if there exists another subset that are larger than k, which is {j1, j2,….,jm}, in which m&gt;k<br>find the first iq != jq, (q&lt;=k), then f(iq)&lt;f(jq), so we can use iq to replace jq …. ik replce jk,<br>Since the jk+1,jk+2….jm are all compatible with jk, the algorithm can not be stop at ik.<br>This is a  contradiction.</p>
+<p>Implementation &amp; Running Time:<br>We begin by sorting n request in order of finishing time and labeling them in this order. This take time O(nlogn).<br>Then we always maintain the finish time f of the last accepted job. We then iterate through the intervals in order until reaching the first interval j for which s(j)&gt;=f, then we select j, and update f with f(j). We continue iterations until there is no more request. This part of algorithm takes time O(n).</p>
+<h3 id="A-Related-Problem-Scheduling-All-Intervals"><a href="#A-Related-Problem-Scheduling-All-Intervals" class="headerlink" title="A Related Problem: Scheduling All Intervals"></a>A Related Problem: Scheduling All Intervals</h3><p>If we have many resources, which is different from above question(just one), we want to schedule all requests with as few resources as possible.</p>
+<p>In any possible solutions, the number of resources must be at least the depth of the set of intervals.<br>Proof: Suppose a set of intervals has depth d, and i1, i2,….id all pass over a common point on the time-line. Then each of theses intervals must be scheduled on a different resource, so the whole instance needs at least d resources.</p>
+<p>If we still sort all requests in order of finishing time, we will not have optimal answers.<br>For example,<br><img src="/images/interval2.jpg" width="30%" height="30%" align="center/"></p>
+<p>Here is the algorithm:</p>
+<pre><code>Sort requests in increasing order of start time i1, i2,...in, breaking ties arbitartily
+For j=1,2,3...,n loop:
+    if there exits a resource that can accept ij, 
+    then choose any such resource
+    ELSE Allocate a new resource and accept ij.
+END Loop
+</code></pre><p> Prove the algorithm uses less than or equal to depth resources.<br> Assume for contradiction, if the algorithm used more than depth resources, means at some time t, there is a request i, which can not be accepted by any resource. For each iq1,…iqd, we have s(iq)<s(i), and="" f(iq)="">s(i). At time t=s(i)+(time -&gt;0), there are at least depth+1 active request, which is contradict to the definition of depth.<br> So since the algorithm gives us less than or equal to depth resources, and the number of resources must be at least the depth of the set of intervals. The algorithm gives us the optimal number of resource needed.</s(i),></p>
+<h3 id="Minimun-Spanning-Tree"><a href="#Minimun-Spanning-Tree" class="headerlink" title="Minimun Spanning Tree"></a>Minimun Spanning Tree</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/15/algorithm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yue Guo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/15/algorithm/" itemprop="url">algorithm- Stable Matching</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-15T14:14:12-05:00">
+                2017-11-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Stable-Matching"><a href="#Stable-Matching" class="headerlink" title="Stable Matching"></a>Stable Matching</h1><p>Consider a set M={m1,…mn} of n men, and a set W={w1,….,wn}<br>What is perfect Matching S’?<br>Consider N*M, each of n men is matched with just one woman and each of n women is matched with just one man. And everyone exists only exactly once in S’.<br>What is Stable?<br>Consider woman w1 is matched with man m1, after that man m2 proposed to w1, and w1 really prefer m2 to m1. Then w1 will match with m2 and reject m1. However, m2 find w2 later, which he prefers to w1. Then m2 will match with w2 and reject w1. Everything is such a mass! So Gale and Shapley defined a stable matching:<br>  if w1 and m1 is matched,  then w1 prefers m1 to other men, or other men prefers his current partner over w1.<br>What is instability?<br>If we have two pairs (m,w) and (m’,w’) in S, with the property that m prefers w’ to w, and w’ prefers m to m’, then we say that pair(m,w’) is unstable. Because nothing can stop them from abandoning their current partners and match with each other.</p>
+<p>Now, we add the notion of preference, each man has a preference list for all women, and each woman has a preference list for all men.<br>Given those preference lists from women and men, how to find a stable match for each woman and each man?<br>Here is the Gale-Shapley algorithm:</p>
+<pre><code>Start with empty matching:e
+While there exists a free man:
+    Choose such a man m, and let him propose to the woman w, which has not proposed and 
+    highest-ranked in m&apos;s preference list. 
+    If w is free, then (m,w) is matched.
+    Else if w prefers m to her current partner m&apos;,
+                   then (m,w) is matched and m&apos; becomes free.
+            Else m remains free.
+            Endif
+    Endif
+ EndWhile
+</code></pre><p>Analyze the Algorithm:</p>
+<ol>
+<li>The G-S algorithm terminates after at most $n^2$ iterations of the While loop.<br>In each iteration,  man only propose to woman he has never proposed before, and there are only $n^2$ pairs of men and women in total, so that the iterations can be at most $n^2$ times. And after all iterations, there can’t be any free man.<br>Proof: If there exists a man m, he has already proposed to every woman and he is still free. Which means all women has rejected him and was matched with someone. There must be n engaged men at this point, but there are only n men total, and m is not engaged, so this is a contradiction.</li>
+<li>We need to prove the correctness of this algorithm.<br>Assume for contradiction:<br>As defined early, we have two pairs (m,w) and (m’,w’) in S, with the property that m prefers w’ to w, and w’ prefers m to m’. In the execution of algorithm that produced S, m proposed to w’ first, after he was rejected by w’ then he proposed to w. Which means w’ is matched with someone m’’, who ranks higher than m in w’s preference list. However, in the end w’ is matched with m’, which ranks lower than m in w’s preference list. This is a contradiction. (Because women only accept those who ranks higher than her current partner)</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/01/R-matrix/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -523,7 +811,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
@@ -531,6 +819,15 @@
 
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">Tags</span>
+                
+              </div>
             
 
           </nav>

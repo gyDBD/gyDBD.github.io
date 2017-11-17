@@ -79,19 +79,20 @@
 
 
 
-<meta name="description" content="Fundamental of Quantitative Modeling What is a model?   A formal description of a business process It is almost always a simplification of a more complex structure. It is not that much simple, but sho">
+<meta name="description" content="What does greedy means?Always pick short term best decision.It is easy to invent greedy algorithm, but how to prove they work well is a challenge. First Problem : Interval SchedulingWe have a set of r">
 <meta property="og:type" content="article">
-<meta property="og:title" content="R_matrix">
-<meta property="og:url" content="http://yoursite.com/2017/10/01/R-matrix/index.html">
+<meta property="og:title" content="greedy_algorithms">
+<meta property="og:url" content="http://yoursite.com/2017/11/15/greedy-algorithms/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Fundamental of Quantitative Modeling What is a model?   A formal description of a business process It is almost always a simplification of a more complex structure. It is not that much simple, but sho">
+<meta property="og:description" content="What does greedy means?Always pick short term best decision.It is easy to invent greedy algorithm, but how to prove they work well is a challenge. First Problem : Interval SchedulingWe have a set of r">
 <meta property="og:locale" content="English">
-<meta property="og:image" content="http://yoursite.com/images/chart1.jpg">
-<meta property="og:updated_time" content="2017-11-03T14:18:49.000Z">
+<meta property="og:image" content="http://yoursite.com/images/interval.jpg">
+<meta property="og:image" content="http://yoursite.com/images/interval2.jpg">
+<meta property="og:updated_time" content="2017-11-17T22:25:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="R_matrix">
-<meta name="twitter:description" content="Fundamental of Quantitative Modeling What is a model?   A formal description of a business process It is almost always a simplification of a more complex structure. It is not that much simple, but sho">
-<meta name="twitter:image" content="http://yoursite.com/images/chart1.jpg">
+<meta name="twitter:title" content="greedy_algorithms">
+<meta name="twitter:description" content="What does greedy means?Always pick short term best decision.It is easy to invent greedy algorithm, but how to prove they work well is a challenge. First Problem : Interval SchedulingWe have a set of r">
+<meta name="twitter:image" content="http://yoursite.com/images/interval.jpg">
 
 
 
@@ -121,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/10/01/R-matrix/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/11/15/greedy-algorithms/"/>
 
 
 
 
 
-  <title>R_matrix | Hexo</title>
+  <title>greedy_algorithms | Hexo</title>
   
 
 
@@ -234,7 +235,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/01/R-matrix/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/15/greedy-algorithms/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yue Guo">
@@ -251,7 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">R_matrix</h1>
+          <h1 class="post-title" itemprop="name headline">greedy_algorithms</h1>
         
 
         <div class="post-meta">
@@ -263,8 +264,8 @@
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-01T22:38:28-04:00">
-                2017-10-01
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-15T16:59:55-05:00">
+                2017-11-15
               </time>
             
 
@@ -301,18 +302,39 @@
       
 
       
-        <h1 id="Fundamental-of-Quantitative-Modeling"><a href="#Fundamental-of-Quantitative-Modeling" class="headerlink" title="Fundamental of Quantitative Modeling"></a>Fundamental of Quantitative Modeling</h1><hr>
-<p>What is a model?</p>
-<blockquote>
-<ul>
-<li>A formal description of a business process</li>
-<li>It is almost always a simplification of a more complex structure. It is not that much simple, but should not be complex.</li>
-<li>It typically relies upon a set of assumptions</li>
-</ul>
-</blockquote>
-<p>Give an example of model:<br>The relationship beteen demard for, and price of, a product. If the demand increases, and the supply remains the same, there will be a shortage. This means the price will increase. This can help a company to figure out what price maximize profit.</p>
-<h4 id="However-model-is-used-as-a-decision-support-tool-the-result-of-any-prediction-or-forecasting-is-not-100-correct"><a href="#However-model-is-used-as-a-decision-support-tool-the-result-of-any-prediction-or-forecasting-is-not-100-correct" class="headerlink" title="However, model is used as a decision support tool, the result of any prediction or forecasting is not 100% correct."></a>However, model is used as a decision support tool, the result of any prediction or forecasting is not 100% correct.</h4><h3 id="Modeling-Process-Workflow"><a href="#Modeling-Process-Workflow" class="headerlink" title="Modeling Process Workflow"></a>Modeling Process Workflow</h3><p><img src="/images/chart1.jpg" width="30%" height="30%" align="center/"></p>
-
+        <p>What does greedy means?<br>Always pick short term best decision.<br>It is easy to invent greedy algorithm, but how to prove they work well is a challenge.</p>
+<h3 id="First-Problem-Interval-Scheduling"><a href="#First-Problem-Interval-Scheduling" class="headerlink" title="First Problem : Interval Scheduling"></a>First Problem : Interval Scheduling</h3><p>We have a set of requests: {1,2,….,n}, and each of them has start-time and finish-time, (s1,f1), (s2,f2),…., (sn,fn).<br>Define: The whole set is compatible if no two of them overlap in time.<br>Goal: Accept as large a compatible subset as possible.</p>
+<p>Using greedy algorithm:<br>We accept a request i and reject all requests that are not compatible with it. We continue doing this until we run out of request.</p>
+<p>The problem is, which rules should we follow to pick up a request in each iteration.<br>We may have several possible ways:</p>
+<ol>
+<li>pick up the first start request.</li>
+<li>pick up the smallest request.</li>
+<li>pick up the one has fewest noncompatible request.</li>
+<li>pick up the first finish request.</li>
+</ol>
+<p><img src="/images/interval.jpg" width="60%" height="60%" align="center/"><br>(Using the example from book “Algorithm Design”)</p>
+<p>With these three example, we can find that rule 1, rule 2 and rule 3 are all wrong. And we should accept the request that finishes first.<br>Here is the algorithm:</p>
+<pre><code>Initialize R with the set of all request, and let A be empty:
+WHILE R is not empty:
+     Choose a request i that finishes first;
+    Add i to A:
+    Delete all requests that are not compatible with i;
+END WHILE
+Return A
+</code></pre><p>Think about it, when we choose a request that finishes first, then we can maximize time left to satisfy other requests.<br>Proof:<br>The algorithm gives us subset A{i1, i2,….,ik]<br>if there exists another subset that are larger than k, which is {j1, j2,….,jm}, in which m&gt;k<br>find the first iq != jq, (q&lt;=k), then f(iq)&lt;f(jq), so we can use iq to replace jq …. ik replce jk,<br>Since the jk+1,jk+2….jm are all compatible with jk, the algorithm can not be stop at ik.<br>This is a  contradiction.</p>
+<p>Implementation &amp; Running Time:<br>We begin by sorting n request in order of finishing time and labeling them in this order. This take time O(nlogn).<br>Then we always maintain the finish time f of the last accepted job. We then iterate through the intervals in order until reaching the first interval j for which s(j)&gt;=f, then we select j, and update f with f(j). We continue iterations until there is no more request. This part of algorithm takes time O(n).</p>
+<h3 id="A-Related-Problem-Scheduling-All-Intervals"><a href="#A-Related-Problem-Scheduling-All-Intervals" class="headerlink" title="A Related Problem: Scheduling All Intervals"></a>A Related Problem: Scheduling All Intervals</h3><p>If we have many resources, which is different from above question(just one), we want to schedule all requests with as few resources as possible.</p>
+<p>In any possible solutions, the number of resources must be at least the depth of the set of intervals.<br>Proof: Suppose a set of intervals has depth d, and i1, i2,….id all pass over a common point on the time-line. Then each of theses intervals must be scheduled on a different resource, so the whole instance needs at least d resources.</p>
+<p>If we still sort all requests in order of finishing time, we will not have optimal answers.<br>For example,<br><img src="/images/interval2.jpg" width="30%" height="30%" align="center/"></p>
+<p>Here is the algorithm:</p>
+<pre><code>Sort requests in increasing order of start time i1, i2,...in, breaking ties arbitartily
+For j=1,2,3...,n loop:
+    if there exits a resource that can accept ij, 
+    then choose any such resource
+    ELSE Allocate a new resource and accept ij.
+END Loop
+</code></pre><p> Prove the algorithm uses less than or equal to depth resources.<br> Assume for contradiction, if the algorithm used more than depth resources, means at some time t, there is a request i, which can not be accepted by any resource. For each iq1,…iqd, we have s(iq)<s(i), and="" f(iq)="">s(i). At time t=s(i)+(time -&gt;0), there are at least depth+1 active request, which is contradict to the definition of depth.<br> So since the algorithm gives us less than or equal to depth resources, and the number of resources must be at least the depth of the set of intervals. The algorithm gives us the optimal number of resource needed.</s(i),></p>
+<h3 id="Minimun-Spanning-Tree"><a href="#Minimun-Spanning-Tree" class="headerlink" title="Minimun Spanning Tree"></a>Minimun Spanning Tree</h3>
       
     </div>
     
@@ -336,8 +358,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/01/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2017/11/15/algorithm/" rel="next" title="algorithm- Stable Matching">
+                <i class="fa fa-chevron-left"></i> algorithm- Stable Matching
               </a>
             
           </div>
@@ -345,10 +367,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/15/algorithm/" rel="prev" title="algorithm- Stable Matching">
-                algorithm- Stable Matching <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -471,7 +489,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Fundamental-of-Quantitative-Modeling"><span class="nav-number">1.</span> <span class="nav-text">Fundamental of Quantitative Modeling</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#However-model-is-used-as-a-decision-support-tool-the-result-of-any-prediction-or-forecasting-is-not-100-correct"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">However, model is used as a decision support tool, the result of any prediction or forecasting is not 100% correct.</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Modeling-Process-Workflow"><span class="nav-number">1.0.1.</span> <span class="nav-text">Modeling Process Workflow</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#First-Problem-Interval-Scheduling"><span class="nav-number">1.</span> <span class="nav-text">First Problem : Interval Scheduling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Related-Problem-Scheduling-All-Intervals"><span class="nav-number">2.</span> <span class="nav-text">A Related Problem: Scheduling All Intervals</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Minimun-Spanning-Tree"><span class="nav-number">3.</span> <span class="nav-text">Minimun Spanning Tree</span></a></li></ol></div>
             
 
           </div>
