@@ -88,7 +88,7 @@
 <meta property="og:locale" content="English">
 <meta property="og:image" content="http://yoursite.com/images/interval.jpg">
 <meta property="og:image" content="http://yoursite.com/images/interval2.jpg">
-<meta property="og:updated_time" content="2017-11-17T22:25:28.000Z">
+<meta property="og:updated_time" content="2017-11-20T20:18:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="greedy_algorithms">
 <meta name="twitter:description" content="What does greedy means?Always pick short term best decision.It is easy to invent greedy algorithm, but how to prove they work well is a challenge. First Problem : Interval SchedulingWe have a set of r">
@@ -334,7 +334,21 @@ For j=1,2,3...,n loop:
     ELSE Allocate a new resource and accept ij.
 END Loop
 </code></pre><p> Prove the algorithm uses less than or equal to depth resources.<br> Assume for contradiction, if the algorithm used more than depth resources, means at some time t, there is a request i, which can not be accepted by any resource. For each iq1,…iqd, we have s(iq)<s(i), and="" f(iq)="">s(i). At time t=s(i)+(time -&gt;0), there are at least depth+1 active request, which is contradict to the definition of depth.<br> So since the algorithm gives us less than or equal to depth resources, and the number of resources must be at least the depth of the set of intervals. The algorithm gives us the optimal number of resource needed.</s(i),></p>
-<h3 id="Minimun-Spanning-Tree"><a href="#Minimun-Spanning-Tree" class="headerlink" title="Minimun Spanning Tree"></a>Minimun Spanning Tree</h3>
+<h3 id="Minimun-Spanning-Tree"><a href="#Minimun-Spanning-Tree" class="headerlink" title="Minimun Spanning Tree"></a>Minimun Spanning Tree</h3><p> We have a set of location {v1,v2,…,vn} and we want to build a road to connect all of them and minimize the whole cost.</p>
+<p> What is the definition of tree?<br> Look up on Wikipedia, “In mathematics, and more specifically in graph theory, a tree is an undirected graph in which any two vertices are connected by exactly one path. In other words, any acyclic connected graph is a tree.”</p>
+<p> Clearly, our solution to the path defined above must be a tree.<br> Proof: if there exists a cycle, then we can delete a edge on circle. And the graph is still connected, and the remaining cost is cheaper– a contradiction.</p>
+<p>Goal: Finding a spanning tree with minimum total cost.<br>We have three ways to get a MST.<br>First, we can greedily adding edges to tree.<br>We sort all edges from E in order of increasing cost. As we move through the edges in this order, we insert each edge e as long as it does not create a cycle when added to the edges we’ve already inserted. This is Kruskal’s Algorithm.</p>
+<p>Second is the Reverse Deletion Algorithm.<br>We sort all edges from E in order of decreasing cost. As we move through the edges in this order, we delete each edge e as long as the graph is still connected when delete from the remaining edges. </p>
+<p>The third one is called Prim’s Algorithm. It is like Dijkstra’s Algorithm for path. Later, we can compare those two together.</p>
+<p>Proof of Kruskal’s Algorithm:<br>Assume all edge weights are distinct (think about why this assumption can be easily eliminated)<br>Claim 1: Let T be a minimum spanning tree, e belongs to E not in T, e has the maximum weight in the fundamental cycle defined by T, e.<br>Proof: Assume for contradiction, if there exists e’ in the fundamental cycle such that the weight e’ &gt; e. Consider T’=T{e’}U{e}, then T’ is still a spanning tree, and the total weight of T’&lt;T. So, contradiction with T is a minimum spanning tree.</p>
+<p>Cut Property: Assume that all edge costs are distinct. Let S be any subset of nodes that is neither empty nor equal to all of V, and let edge e=(v,w) be the minimum  cost edge with one end in S and the other in V-S. Then every minimum spanning tree contains the edge e.<br>Proof: Assume for contradiction, if T is a minimum spanning tree and does not contain edge e, then we add e to T, contradict to Claim 1.</p>
+<p>Claim 2: Let T be a minimum spanning tree, e belongs to T, e has the minimum weight in the fundamental cut, defined by T, e.<br>Proof: Assume for contradiction, if there exists e’ in the fundamental cut and not belong to T and the weight of e’&lt;e. Consider T’=T{e}U{e’}, then T’ is still a spanning tree, and and the total weight of T’&lt;T. So, contradiction with T is a minimum spanning tree.</p>
+<p>Cycle Property: For any cycle C, let e be the most expensive edge in C, then e must not belong to any MST.<br>Proof: Assume for contradiction, if T is a minimum spanning tree and contain edge e, contradict to Claim 2.</p>
+<p>With Cut Property, we can easily prove the optimality of both Kruskal’s Algorithm and Prim’s Algorithm. In both algorithm, when we add an edge only it is justified by the Cut Property. With Cycle Property, we can easily prove the optimality of Reverse Algorithm.</p>
+<p>In addition, if we combine Cut Property with Cycle Property, any algorithm that builds a MST by repeatedly adding edges when justified by the Cut Property or deleting edges when justified by Cycle Property- in any order- will end up a minimum spanning tree.</p>
+<p>Prime’s Algorithm:<br>    S={v1}, T=empty;<br>    For i = 1 to n-1 Do:<br>        Find the cheapest edge e =(u,v), such that u belongs to S, v belongs to V-S,<br>    S=SU{v}, T=TU{e}<br>    Return T<br>Implementation:<br>    Using a priority Queue, namely Q. key=w(neighbor[v],v)<br>    For i = 1 to n-1 Do:<br>    ExtraMin w(neighbor[v],v)<br>    u&lt;-neighbor[v], e &lt;-(u,v)<br>    S&lt;-SU{v}, T&lt;-TU{e}<br>    For all (v,z) belongs to E, z does not in S,<br>        if w(v,z) &lt;w(neighbor[z],z), then update neighbor[z]&lt;-v.</p>
+<p>In the loop, each v is extracted, we need to update degree of v’s decrease key. Because since v is added to S, its neighbor;s key can be decreased. The total number of DecreaseKey call is at most 2m. And the total number of ExtraMin call is at most n.<br>With Fibonacci Heap, ExtraMin takes O(logn) time and DecreaseKey only takes O(1) time.<br>So the time complexity of Prim’s algorithm is n*logn+m.</p>
+
       
     </div>
     
